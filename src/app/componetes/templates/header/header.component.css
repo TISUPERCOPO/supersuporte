@@ -1,0 +1,19 @@
+.header {
+    margin-bottom: 15px;
+
+    box-shadow: 1px 6px 5px 0px rgba(0,0,0,0.75);
+  
+}
+
+.header .title {
+    padding: 10px;
+    font-weight: 300;
+    text-decoration: underline;
+    color: #F86F03;
+}
+
+.header, .title , img {
+    display: flex;
+    justify-content: center;
+
+}
