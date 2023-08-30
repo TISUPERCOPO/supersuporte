@@ -1,19 +1,16 @@
-.header {
-    margin-bottom: 15px;
 
-    box-shadow: 1px 6px 5px 0px rgba(0,0,0,0.75);
-  
-}
 
-.header .title {
-    padding: 10px;
-    font-weight: 300;
-    text-decoration: underline;
-    color: #F86F03;
-}
-
-.header, .title , img {
+.header img {
+    width: 300px;
     display: flex;
     justify-content: center;
-
+    margin: 0 auto;
+    margin-top: 5px;
 }
+
+@media (min-width: 1200px) {
+    .header {
+        width: 1170px;
+        margin: 0 auto;
+    }
+  }
