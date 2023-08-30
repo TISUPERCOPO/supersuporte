@@ -1,8 +1,7 @@
 .accordion {
-    padding: 15px;
    display: flex;
   justify-content: center;
-   clear: both;
+  margin: 0 auto;
    margin-bottom: 100px;
 }
 
@@ -20,30 +19,34 @@
     margin: 15px;
 }
 
-
-.conteudo .capa img {
-    width: 100%;
+.conteudo .card {
+ display: flex;
+ justify-content: center;
+ margin: 0 auto;
 }
 
-.conteudo .title  h2{
-    text-align: center;
+.conteudo .card h2 {
     color: #ff6600;
     margin: 10px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
-.conteudo .title p {
+.conteudo .card img {
+    display: flex;
+    float: right;
+    margin-right: 2%;
+}
+
+.conteudo .card p {
     text-align: center;
     margin: 0 auto;
-    width: 40%;
     margin-bottom: 25px;
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-.conteudo .title img {
-    display: flex;
-    float: right;
-    margin-right: 22%;
-}
+
+
+
 

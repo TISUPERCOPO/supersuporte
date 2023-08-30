@@ -5,11 +5,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
-import { AccordionModule } from 'primeng/accordion';
 import { HeaderComponent } from './componetes/templates/header/header.component';
 import { FooterComponent } from './componetes/templates/footer/footer.component';
 import { ConteudoComponent } from './componetes/templates/conteudo/conteudo.component';
+
+import { AccordionModule } from 'primeng/accordion';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ConteudoComponent } from './componetes/templates/conteudo/conteudo.comp
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AccordionModule
+    AccordionModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
