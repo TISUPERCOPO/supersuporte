@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -8,9 +8,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './componetes/templates/header/header.component';
 import { FooterComponent } from './componetes/templates/footer/footer.component';
 import { ConteudoComponent } from './componetes/templates/conteudo/conteudo.component';
+import { PrimeNgModule } from './primeng.module';
+import { CoreModule } from './core/core.module';
 
-import { AccordionModule } from 'primeng/accordion';
-import { CardModule } from 'primeng/card';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -23,10 +26,13 @@ import { CardModule } from 'primeng/card';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AccordionModule,
-    CardModule
+    PrimeNgModule,
+    CoreModule,
+    NgxSpinnerModule,
+    HttpClientModule,
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

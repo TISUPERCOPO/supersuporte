@@ -1,0 +1,28 @@
+<header>
+    <img [src]="logo" height="45" alt="Super Copo" routerLink="/" />
+
+</header>
+
+<div class="menu" (click)="menu = true" pTooltip="Menu" tooltipPosition="bottom">
+    <i class="pi pi-bars text-black-alpha-90" style="font-size: 18px; color: rgb(5, 5, 5);"></i>
+</div>
+
+<div class="home" routerLink="/" pTooltip="Início" tooltipPosition="bottom">
+    <i class="pi pi-home text-black-alpha-90" style="font-size: 20px; color: rgb(0, 0, 0);"></i>
+</div>
+  
+
+<p-sidebar  [(visible)]="menu" [baseZIndex]="10000">
+    <p-accordion>
+        <p-accordionTab header="Buscar CNPJ/CEP">
+            <!-- Consulta de CNPJ -->
+            <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo" icon="fi fi-rs-building"
+            (click)="menu = false"  label="CNPJ" routerLink="/cnpj" ></button>
+            
+            <!-- Consulta de CEP -->
+            <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo" icon="fi fi-rs-building"
+            (click)="menu = false"  label="CEP" routerLink="/cep" ></button>
+        </p-accordionTab>
+
+    </p-accordion>
+</p-sidebar>

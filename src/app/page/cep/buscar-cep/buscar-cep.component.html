@@ -1,0 +1,45 @@
+<main>
+
+
+<p-card styleClass="card-adjust p-mt-5 p-mx-3">
+
+
+<form #form="ngForm">
+    <button pButton type="button" class="p-button-primary voltar" icon="pi pi-arrow-left" pTooltip="Voltar" routerLink="/" ></button>
+    <div class="grid flex justify-content-center flex-wrap">
+        <div class="col-8 md:col-6 lg:col-3">
+            <h6>Informe o Cep</h6>
+            <p-inputMask type="tel" styleClass="w-full" mask="99999-999" minlength="8"
+                (onBlur)="buscarCEP(buscacep, form)" name="cep" [(ngModel)]="buscacep" [unmask]="true"
+                [required]="true"></p-inputMask>
+        </div>
+        <div class="col-4 md:col-6 lg:col-3">
+            <h6>&nbsp;</h6>
+            <button pButton pRipple type="button" label="Pesquisar" class="p-button-raised"
+                (click)="buscarCEP(buscacep, form)" [disabled]="form.invalid"></button>
+        </div>
+    </div>
+
+    <div class="grid flex" *ngIf="buscar">
+        <div class="col-12 md:col-6 lg:col-3">
+            <h5>Logradouro</h5>
+            <input class="w-full" type="text" pInputText ngModel id="logradouro" name="logradouro" disabled="true">
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <h5>Bairro</h5>
+            <input class="w-full" type="text" pInputText ngModel id="bairro" name="bairro" disabled="true">
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <h5>Cidade</h5>
+            <input class="w-full" type="text" pInputText ngModel id="cidade" name="cidade" disabled="true">
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <h5>Estado</h5>
+            <input class="w-full" type="text" pInputText ngModel id="estado" name="estado" disabled="true">
+        </div>
+    </div>
+</form>
+
+</p-card>
+
+</main>
