@@ -15,7 +15,7 @@ export class ExportService {
     const formattedData = data.map(row => {
       const formattedRow = { ...row };
       for (const key in formattedRow) {
-        if (typeof formattedRow[key] === 'number') {
+        if (this.isMonetaryField(key) && typeof formattedRow[key] === 'number') {
           formattedRow[key] = this.formatCurrency(formattedRow[key]);
         }
       }
@@ -28,13 +28,13 @@ export class ExportService {
     this.saveAsExcelFile(excelBuffer, fileName);
   }
 
-  async exportToPDF(data: any[], fileName: string, companyInfo: any): Promise<void> {
+  async exportToPDF(data: any[], fileName: string, companyInfo: any, observation: string): Promise<void> {
     const doc = new jsPDF();
     const columns = Object.keys(data[0]).map(key => ({ title: key, dataKey: key }));
     const rows = data.map(item => {
       const formattedItem = { ...item };
       for (const key in formattedItem) {
-        if (typeof formattedItem[key] === 'number') {
+        if (this.isMonetaryField(key) && typeof formattedItem[key] === 'number') {
           formattedItem[key] = this.formatCurrency(formattedItem[key]);
         }
       }
@@ -52,9 +52,9 @@ export class ExportService {
     }
 
     doc.setFontSize(12);
-    doc.text(`Address: ${companyInfo.address}`, 20, 40);
-    doc.text(`Phone: ${companyInfo.phone}`, 20, 50);
-    doc.text(`Email: ${companyInfo.email}`, 20, 60);
+    doc.text(`Endereço: ${companyInfo.address}`, 20, 40);
+    doc.text(`Telefone: ${companyInfo.phone}`, 20, 50);
+    //doc.text(`Email: ${companyInfo.email}`, 20, 60);
 
     // Add table
     (doc as any).autoTable({
@@ -62,6 +62,11 @@ export class ExportService {
       body: rows,
       startY: 70
     });
+
+    // Add observation at the end of the page
+    const finalY = (doc as any).lastAutoTable.finalY;
+    doc.text('Obersavação:', 20, finalY + 20);
+    doc.text(observation, 20, finalY + 30);
 
     doc.save(`${fileName}_export_${new Date().getTime()}.pdf`);
   }
@@ -94,6 +99,12 @@ export class ExportService {
       style: 'currency',
       currency: 'BRL'
     }).format(value);
+  }
+
+  private isMonetaryField(fieldName: string): boolean {
+    // Add your specific fields that should be formatted as currency
+    const monetaryFields = ['preco', 'valorTotal', 'total', 'outroCampoMonetario'];
+    return monetaryFields.includes(fieldName);
   }
 }
 

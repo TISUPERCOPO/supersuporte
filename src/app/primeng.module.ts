@@ -8,6 +8,7 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 
@@ -23,7 +24,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
         CommonModule,
         FormsModule,
         InputTextModule,
-        InputNumberModule
+        InputNumberModule,
+        InputTextareaModule
     ]
 })
 

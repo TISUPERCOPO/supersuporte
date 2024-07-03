@@ -6,8 +6,9 @@
                 <input pInputText  type="text" id="produto" name="produto" [(ngModel)]="model.produto" required/>
             </div>
             <div>
-                <label for="quantidade">Quantidade</label>
-                <p-inputNumber  type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
+              <label for="quantidade">Quantidade</label>
+              <label for="quantidade">Quantidade</label>
+              <p-inputNumber  type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
             </div>
             <div>
                 <label for="preco">Preço</label>
@@ -40,11 +41,16 @@
                   </tr>
                 </tbody>
               </table>
-              
             
+            <div>
+              <label for="observacao">Observação</label>
+              <textarea rows="5" cols="30"  pInputTextarea  id="observacao" name="observacao" [(ngModel)]="observacao"></textarea>
+            </div>
+          
             <button pButton (click)="exportResultToExcel()">Exportar para Excel</button>
             <button pButton (click)="exportResultToPDF()">Exportar para PDF</button>
           </div>
+          
           
                     
  <!-- 

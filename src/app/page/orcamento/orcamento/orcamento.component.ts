@@ -24,12 +24,13 @@ export class OrcamentoComponent {
   };
 
   produtos: Produto[] = [];
+  observacao: string = '';
 
   companyInfo = {
-    name: 'Minha Empresa',
-    address: 'Rua Exemplo, 123',
-    phone: '(11) 1234-5678',
-    email: 'contato@minhaempresa.com',
+    name: 'Super Copo',
+    address: 'Rua Jácomo Valério, 998',
+    phone: '(43) 3151-1876',
+    //email: 'contato@minhaempresa.com',
     logo: 'assets/img/logo.png' // Caminho para o logotipo
   };
 
@@ -56,7 +57,7 @@ export class OrcamentoComponent {
 
   async exportResultToPDF() {
     if (this.produtos.length > 0) {
-      await this.exportService.exportToPDF(this.produtos, 'Orcamento', this.companyInfo);
+      await this.exportService.exportToPDF(this.produtos, 'Orcamento', this.companyInfo, this.observacao);
     }
   }
 }
