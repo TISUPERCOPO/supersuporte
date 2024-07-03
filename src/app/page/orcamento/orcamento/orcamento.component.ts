@@ -2,16 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ExportService } from '../export.service';
 
-interface OrcamentoPedido {
+interface Produto {
+  produto: string;
   quantidade: number;
   preco: number;
-  produto: string;
-}
-
-interface Resultado {
-  quantidadeTotal: number;
-  precoTotal: number;
-  produto: string;
+  total: number;
 }
 
 @Component({
@@ -21,31 +16,47 @@ interface Resultado {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrcamentoComponent {
-  model: OrcamentoPedido = {
+  model: Produto = {
+    produto: '',
     quantidade: 0,
     preco: 0,
-    produto: ''
+    total: 0
   };
 
-  result: Resultado | null = null;
+  produtos: Produto[] = [];
+
+  companyInfo = {
+    name: 'Minha Empresa',
+    address: 'Rua Exemplo, 123',
+    phone: '(11) 1234-5678',
+    email: 'contato@minhaempresa.com',
+    logo: 'assets/img/logo.png' // Caminho para o logotipo
+  };
 
   constructor(private exportService: ExportService) {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      const { quantidade, preco, produto } = this.model;
-      this.result = {
-        quantidadeTotal: quantidade,
-        precoTotal: quantidade * preco,
-        produto: produto
-      };
+      const { produto, quantidade, preco } = this.model;
+      const total = quantidade * preco;
+      this.produtos.push({ produto, quantidade, preco, total });
+      form.resetForm();  // Limpar o formulário após adicionar o produto
     }
   }
 
+  deleteProduto(index: number) {
+    this.produtos.splice(index, 1);
+  }
+
   exportResultToExcel() {
-    if (this.result) {
-      const data = [this.result];
-      this.exportService.exportToExcel(data, 'Orcamento');
+    if (this.produtos.length > 0) {
+      this.exportService.exportToExcel(this.produtos, 'Orcamento');
+    }
+  }
+
+  async exportResultToPDF() {
+    if (this.produtos.length > 0) {
+      await this.exportService.exportToPDF(this.produtos, 'Orcamento', this.companyInfo);
     }
   }
 }
