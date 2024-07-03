@@ -24,5 +24,17 @@
             (click)="menu = false"  label="CEP" routerLink="/cep" ></button>
         </p-accordionTab>
 
+        <p-accordionTab header="Suporte">
+            <!-- Tela de suporte de Impressora -->
+            <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo" icon="fi fi-rs-building"
+            (click)="menu = false"  label="Instalar Impressoa" routerLink="/suportes" ></button>
+         </p-accordionTab>
+         
+         <p-accordionTab header="Orçamento">
+             <!-- Tela de suporte de Impressora -->
+             <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo" icon="fi fi-rs-building"
+             (click)="menu = false"  label="Orçamentos pedido" routerLink="/orcamentos" ></button>
+             
+        </p-accordionTab>
     </p-accordion>
 </p-sidebar>

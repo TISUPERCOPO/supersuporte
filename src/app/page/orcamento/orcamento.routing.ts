@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { BuscarCepComponent } from "./buscar-cep/buscar-cep.component";
+import { OrcamentoComponent } from "./orcamento/orcamento.component";
 
 const routes: Routes = [
     {
         path: '',
-        component: BuscarCepComponent
+        component: OrcamentoComponent
     }
 ]
 
@@ -16,4 +16,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class CepRouting { }
+export  class OrcamentoRouting {}

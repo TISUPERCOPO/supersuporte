@@ -10,6 +10,14 @@ const routes: Routes = [
     path: 'cep', loadChildren: () =>
     import('./page/cep/cep.module').then(m =>  m.CepModule)
   },
+  {
+    path: 'suportes', loadChildren: () =>
+    import('./page/suporte/suporte.module').then(m =>  m.SuporteModule)
+  },
+  {
+    path: 'orcamentos', loadChildren: () =>
+    import('./page/orcamento/orcamento.module').then(m =>  m.OrcamentoModule)
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,28 @@
+<main>
+    <p-card styleClass="card-adjust p-mt-5 p-mx-3">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div>
+      <label for="produto">Produto</label>
+      <input pInputText  type="text" id="produto" name="produto" [(ngModel)]="model.produto" required/>
+    </div>
+    <div>
+      <label for="quantidade">Quantidade</label>
+      <p-inputNumber  type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
+    </div>
+    <div>
+      <label for="preco">Preço</label>
+      <p-inputNumber mode="currency" currency="BRL" placeholder="0,00" type="number" id="preco" name="preco" [(ngModel)]="model.preco" required/>
+    </div>
+    <button pButton type="submit">Calcular</button>
+  </form>
+  
+  <div *ngIf="result">
+    <h3>Resultado</h3>
+    <p>Produto: {{ result.produto }}</p>
+    <p>Quantidade Total: {{ result.quantidadeTotal }}</p>
+    <p>Preço Total: {{ result.precoTotal | currency }}</p>
+    
+    <button pButton (click)="exportResultToExcel()">Exportar para Excel</button>
+  </div>
+</p-card>
+</main>

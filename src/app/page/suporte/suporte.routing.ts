@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { BuscarCepComponent } from "./buscar-cep/buscar-cep.component";
+import { SuporteComponent } from "./suporte/suporte.component";
 
 const routes: Routes = [
     {
         path: '',
-        component: BuscarCepComponent
+        component: SuporteComponent
     }
 ]
 
@@ -16,4 +16,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class CepRouting { }
+export class SuporteRouting { }
