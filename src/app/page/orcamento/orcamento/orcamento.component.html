@@ -7,12 +7,11 @@
             </div>
             <div>
               <label for="quantidade">Quantidade</label>
-              <label for="quantidade">Quantidade</label>
               <p-inputNumber  type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
             </div>
             <div>
                 <label for="preco">Preço</label>
-                <p-inputNumber mode="currency" currency="BRL" placeholder="0,00" type="number" id="preco" name="preco" [(ngModel)]="model.preco" required/>
+                <p-inputNumber mode="currency" currency="BRL"  type="number" id="preco" name="preco" [(ngModel)]="model.preco" required/>
             </div>
             <button pButton type="submit">Adicionar Produto</button>
           </form>
