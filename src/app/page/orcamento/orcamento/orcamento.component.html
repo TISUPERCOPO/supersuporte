@@ -12,11 +12,11 @@
       </div>
       <div>
         <label for="quantidade">Quantidade</label>
-        <p-inputNumber type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
+        <p-inputNumber type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" [required]="true"/>
       </div>
       <div>
         <label for="preco">Preço</label>
-        <p-inputNumber mode="currency" currency="BRL"  type="number" id="preco" name="preco" [(ngModel)]="model.preco" required/>
+        <p-inputNumber mode="currency" currency="BRL"   id="preco" name="preco" [(ngModel)]="model.preco" required/>
       </div>
 
       <div>
@@ -24,7 +24,7 @@
           {{ aplicarDesconto ? 'Remover Desconto' : 'Aplicar Desconto' }}
         </button>
       </div>
-      <button pButton type="submit">Adicionar Produto</button>
+      <button pButton type="submit"  [disabled]="form.invalid">Adicionar Produto</button>
     </form>
     
     <div *ngIf="produtos.length > 0">

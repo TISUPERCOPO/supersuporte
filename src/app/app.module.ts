@@ -13,6 +13,7 @@ import { CoreModule } from './core/core.module';
 
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpClientModule } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgxSpinnerModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [MessageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

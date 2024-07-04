@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ExportService } from '../export.service';
+import { MessageService } from 'primeng/api';
 
 interface Produto {
   produto: string;
@@ -43,16 +44,24 @@ export class OrcamentoComponent {
     logo: 'assets/img/logo.png'
   };
 
-  constructor(private exportService: ExportService) {}
+  constructor(
+    private exportService: ExportService,
+    private messageService: MessageService
+
+    
+  ) {}
 
   onSubmit(form: NgForm) {
-    if (form.valid) {
+    if (form.valid && this.model.quantidade > 0 && this.model.preco > 0) {
       const { produto, quantidade, preco } = this.model;
       const valorDesconto = this.aplicarDesconto ? (preco * (this.desconto / 100)) * quantidade : 0;
       const total = (preco * quantidade) - valorDesconto;
       this.produtos.push({ produto, quantidade, preco, total, percentualDesconto: this.desconto, valorDesconto });
       this.calculateTotals();
       form.resetForm();  // Limpar o formulário após adicionar o produto
+    } else {
+      // Adicione aqui uma lógica para exibir uma mensagem de erro se a validação falhar
+      this.messageService.add(  { severity: 'error', summary: 'Preencha todos os campos' })
     }
   }
 
