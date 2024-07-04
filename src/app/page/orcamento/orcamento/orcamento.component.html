@@ -1,82 +1,81 @@
 <main>
-    <p-card styleClass="card-adjust p-mt-5 p-mx-3">
-        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-            <div>
-                <label for="produto">Produto</label>
-                <input pInputText  type="text" id="produto" name="produto" [(ngModel)]="model.produto" required/>
-            </div>
-            <div>
-              <label for="quantidade">Quantidade</label>
-              <p-inputNumber  type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
-            </div>
-            <div>
-                <label for="preco">Preço</label>
-                <p-inputNumber mode="currency" currency="BRL"  type="number" id="preco" name="preco" [(ngModel)]="model.preco" required/>
-            </div>
-            <button pButton type="submit">Adicionar Produto</button>
-          </form>
-          
-          <div *ngIf="produtos.length > 0">
-            <h3>Produtos</h3>
-            <table class="ui-table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Produto</th>
-                    <th>Quantidade</th>
-                    <th>Preço</th>
-                    <th>Total</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let produto of produtos; let i = index">
-                    <td>{{ produto.produto }}</td>
-                    <td>{{ produto.quantidade }}</td>
-                    <td>{{ produto.preco | currency: 'BRL':'symbol' }}</td>
-                    <td>{{ produto.total | currency: 'BRL':'symbol' }}</td>
-                    <td>
-                      <button pButton icon="pi pi-trash" class="p-button-danger" (click)="deleteProduto(i)">Excluir</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            
-            <div>
-              <label for="observacao">Observação</label>
-              <textarea rows="5" cols="30"  pInputTextarea  id="observacao" name="observacao" [(ngModel)]="observacao"></textarea>
-            </div>
-          
-            <button pButton (click)="exportResultToExcel()">Exportar para Excel</button>
-            <button pButton (click)="exportResultToPDF()">Exportar para PDF</button>
-          </div>
-          
-          
-                    
- <!-- 
+  <p-card styleClass="card-adjust p-mt-5 p-mx-3">
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-        <div>
-            <label for="produto">Produto</label>
-            <input pInputText  type="text" id="produto" name="produto" [(ngModel)]="model.produto" required/>
-        </div>
-        <div>
-            <label for="quantidade">Quantidade</label>
-            <p-inputNumber  type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
-        </div>
-        <div>
-            <label for="preco">Preço</label>
-            <p-inputNumber mode="currency" currency="BRL" placeholder="0,00" type="number" id="preco" name="preco" [(ngModel)]="model.preco" required/>
-        </div>
-        <button pButton type="submit">Calcular</button>
+
+      <div *ngIf="aplicarDesconto">
+        <label for="desconto">Desconto (%)</label>
+        <p-inputNumber type="number" id="desconto" name="desconto" [(ngModel)]="desconto" required (change)="calculateTotals()" />
+      </div>
+      <div>
+        <label for="produto">Produto</label>
+        <input pInputText type="text" id="produto" name="produto" [(ngModel)]="model.produto" required/>
+      </div>
+      <div>
+        <label for="quantidade">Quantidade</label>
+        <p-inputNumber type="number" id="quantidade" name="quantidade" [(ngModel)]="model.quantidade" required/>
+      </div>
+      <div>
+        <label for="preco">Preço</label>
+        <p-inputNumber type="number" id="preco" name="preco" [(ngModel)]="model.preco" required/>
+      </div>
+
+      <div>
+        <button pButton (click)="toggleDesconto()" type="button">
+          {{ aplicarDesconto ? 'Remover Desconto' : 'Aplicar Desconto' }}
+        </button>
+      </div>
+      <button pButton type="submit">Adicionar Produto</button>
     </form>
     
-    <div *ngIf="result">
-        <h3>Resultado</h3>
-        <p>Produto: {{ result.produto }}</p>
-        <p>Quantidade Total: {{ result.quantidadeTotal }}</p>
-        <p>Preço Total: {{ result.precoTotal | currency }}</p>
-        
-        <button pButton (click)="exportResultToExcel()">Exportar para Excel</button>
+    <div *ngIf="produtos.length > 0">
+      <h3>Produtos</h3>
+      <table class="ui-table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Percentual Desconto</th>
+            <th>Valor Desconto</th>
+            <th>Total</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let produto of produtos; let i = index">
+            <td>{{ produto.produto }}</td>
+            <td>{{ produto.quantidade }}</td>
+            <td>{{ produto.preco | currency: 'BRL':'symbol' }}</td>
+            <td>{{ produto.percentualDesconto }}%</td>
+            <td>{{ produto.valorDesconto | currency: 'BRL':'symbol' }}</td>
+            <td>{{ produto.total | currency: 'BRL':'symbol' }}</td>
+            <td>
+              <button pButton icon="pi pi-trash" class="p-button-danger" (click)="deleteProduto(i)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+      <div>
+        <label for="totalBruto">Total Bruto</label>
+        <input pInputText type="text" id="totalBruto" [value]="totalBruto | currency:'BRL':'symbol'" readonly>
+      </div>
+    
+      <div *ngIf="aplicarDesconto">
+        <label for="valorTotalDesconto">Valor Total do Desconto</label>
+        <input pInputText type="text" id="valorTotalDesconto" [value]="valorTotalDesconto | currency:'BRL':'symbol'" readonly>
+        <label for="totalComDesconto">Total com Desconto</label>
+        <input pInputText type="text" id="totalComDesconto" [value]="totalComDesconto | currency:'BRL':'symbol'" readonly>
+      </div>
+    
+      <div>
+        <label for="observacao">Observação</label>
+        <textarea pInputTextarea id="observacao" name="observacao" [(ngModel)]="observacao"></textarea>
+      </div>
+    
+      <button pButton (click)="exportResultToExcel()">Exportar para Excel</button>
+      <button pButton (click)="exportResultToPDF()">Exportar para PDF</button>
     </div>
--->       
-</p-card>
+    
+  </p-card>
 </main>

@@ -28,18 +28,25 @@ export class ExportService {
     this.saveAsExcelFile(excelBuffer, fileName);
   }
 
-  async exportToPDF(data: any[], fileName: string, companyInfo: any, observation: string): Promise<void> {
+  async exportToPDF(data: any[], fileName: string, companyInfo: any, observation: string, discountPercentage: number, totalDiscountValue: number, totalComDesconto: number, totalBruto: number): Promise<void> {
     const doc = new jsPDF();
-    const columns = Object.keys(data[0]).map(key => ({ title: key, dataKey: key }));
-    const rows = data.map(item => {
-      const formattedItem = { ...item };
-      for (const key in formattedItem) {
-        if (this.isMonetaryField(key) && typeof formattedItem[key] === 'number') {
-          formattedItem[key] = this.formatCurrency(formattedItem[key]);
-        }
-      }
-      return Object.values(formattedItem);
-    });
+    const columns = [
+        { title: 'Produto', dataKey: 'produto' },
+        { title: 'Quantidade', dataKey: 'quantidade' },
+        { title: 'Porcentagem', dataKey: 'percentualDesconto' },
+        { title: 'Valor do Desconto', dataKey: 'valorDesconto' },
+        { title: 'Valor do Produto', dataKey: 'valorProduto' },
+        { title: 'Total Bruto', dataKey: 'totalBruto' }
+    ];
+
+    const rows = data.map(item => [
+        item.produto,
+        item.quantidade,
+        `${item.percentualDesconto}%`,
+        this.formatCurrency(item.valorDesconto),
+        this.formatCurrency(item.preco),
+        this.formatCurrency(item.total)
+    ]);
 
     // Add company info and logo
     doc.setFontSize(18);
@@ -48,7 +55,7 @@ export class ExportService {
     // Load and add image
     const logoBase64 = await this.getBase64ImageFromURL(companyInfo.logo);
     if (logoBase64) {
-      doc.addImage(logoBase64, 'PNG', 150, 10, 40, 20);
+        doc.addImage(logoBase64, 'PNG', 150, 10, 40, 20);
     }
 
     doc.setFontSize(12);
@@ -58,15 +65,20 @@ export class ExportService {
 
     // Add table
     (doc as any).autoTable({
-      head: [columns],
-      body: rows,
-      startY: 70
+        head: [columns],
+        body: rows,
+        startY: 70
     });
 
-    // Add observation at the end of the page
+    // Add total discount value
     const finalY = (doc as any).lastAutoTable.finalY;
-    doc.text('Obersavação:', 20, finalY + 20);
-    doc.text(observation, 20, finalY + 30);
+    doc.text(`Total do Desconto: ${this.formatCurrency(totalDiscountValue)}`, 20, finalY + 20);
+    doc.text(`Total Bruto: ${this.formatCurrency(totalBruto)}`, 20, finalY + 30);
+    doc.text(`Total com Desconto: ${this.formatCurrency(totalComDesconto)}`, 20, finalY + 40);
+
+    // Add observation at the end of the page
+    doc.text('Observations:', 20, finalY + 60);
+    doc.text(observation, 20, finalY + 70);
 
     doc.save(`${fileName}_export_${new Date().getTime()}.pdf`);
   }
@@ -96,17 +108,15 @@ export class ExportService {
 
   private formatCurrency(value: number): string {
     return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
+        style: 'currency',
+        currency: 'BRL'
     }).format(value);
   }
 
   private isMonetaryField(fieldName: string): boolean {
-    // Add your specific fields that should be formatted as currency
-    const monetaryFields = ['preco', 'valorTotal', 'total', 'outroCampoMonetario'];
+    const monetaryFields = ['valorDesconto', 'preco', 'total'];
     return monetaryFields.includes(fieldName);
   }
 }
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_EXTENSION = '.xlsx';
