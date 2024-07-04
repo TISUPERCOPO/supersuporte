@@ -1,0 +1,33 @@
+<main>
+    <p-card class="card-adjust p-mt-5 p-mx-3">
+        <h2 class="card-title">Teste</h2>
+
+        <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [autoplayInterval]="3000">
+            <ng-template let-product pTemplate="item">
+                <div class="carousel-item" (click)="scrollToText(product.id)">
+                    <img [src]="product.image" alt="{{ product.label }}" class="carousel-image" />
+                    <div class="carousel-caption">
+                        <h3>{{ product.label }}</h3>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+        <hr>
+
+        <div id="text1" class="content-row">
+            <p class="content-text">
+                Mussum Ipsum, cacilds vidis litro abertis. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Atirei o pau no gatis, per gatis num morreus. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si num tem leite então bota uma pinga aí cumpadi!
+                Diuretics paradis num copo é motivis de denguis. Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo! Mais vale um bebadis conhecidiss, que um alcoolatra anonimis. Casamentiss faiz malandris se pirulitá. A ordem dos tratores não altera o pão duris. Nullam volutpat risus nec leo commodo, ut interdum diam laoreet. Sed non consequat odio. Per aumento de cachacis, eu reclamis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.
+            </p>
+            <img class="content-image" src="assets/img/01.png" alt="Imagem">
+        </div>
+        <hr>
+        <div id="text2" class="content-row reverse">
+            <img class="content-image" src="assets/img/01.png" alt="Imagem">
+            <p class="content-text">
+                Mussum Ipsum, cacilds vidis litro abertis. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Atirei o pau no gatis, per gatis num morreus. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si num tem leite então bota uma pinga aí cumpadi!
+                Diuretics paradis num copo é motivis de denguis. Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo! Mais vale um bebadis conhecidiss, que um alcoolatra anonimis. Casamentiss faiz malandris se pirulitá. A ordem dos tratores não altera o pão duris. Nullam volutpat risus nec leo commodo, ut interdum diam laoreet. Sed non consequat odio. Per aumento de cachacis, eu reclamis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.
+            </p>
+        </div>
+    </p-card>
+</main>

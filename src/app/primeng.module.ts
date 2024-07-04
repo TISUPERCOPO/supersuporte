@@ -11,6 +11,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { CarouselModule } from 'primeng/carousel';
 
 
 
@@ -28,7 +29,8 @@ import { MessageService } from 'primeng/api';
         InputTextModule,
         InputNumberModule,
         InputTextareaModule,
-        ToastModule
+        ToastModule,
+        CarouselModule
     ]
 })
 
