@@ -72,9 +72,9 @@ export class ExportService {
 
     // Add total discount value
     const finalY = (doc as any).lastAutoTable.finalY;
-    doc.text(`Total do Desconto: ${this.formatCurrency(totalDiscountValue)}`, 20, finalY + 20);
     doc.text(`Total Bruto: ${this.formatCurrency(totalBruto)}`, 20, finalY + 30);
-    doc.text(`Total com Desconto: ${this.formatCurrency(totalComDesconto)}`, 20, finalY + 40);
+    doc.text(`Total do Desconto: ${this.formatCurrency(totalComDesconto)}`, 20, finalY + 40);
+    doc.text(`Total com Desconto: ${this.formatCurrency(totalDiscountValue)}`, 20, finalY + 20);
 
     // Add observation at the end of the page
     doc.text('Observations:', 20, finalY + 60);
